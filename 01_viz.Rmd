@@ -96,7 +96,77 @@ weather_df |>
   ) |>
   ggplot(aes(x = tmin, y = tmax)) +
   geom_point()
-  
+
+```
+
+
+what's a hex plot
+
+```{r}
+weather_df |>
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_hex()
+```
+
+## Univariate plots
+
+```{r}
+weather_df |>
+  ggplot(aes(x = tmax, fill = name)) + # fill: 填充一些本来是描边的区块
+  geom_histogram() +
+  facet_grid(. ~ name)
+```
+
+Density plots are great!!
+
+```{r}
+weather_df |>
+  ggplot(aes(x = tmax, fill = name)) +
+  geom_density(alpha = .3) # alpha: change 透明度
+```
+
+Boxplots
+
+```{r}
+weather_df |>
+  ggplot(aes(x = name, y = tmax)) + # 可以只有x = tmax
+  geom_boxplot()
+```
+
+Violin # 呈现数量对应的宽度上的区别？
+
+```{r}
+weather_df |>
+  ggplot(aes(x = name, y = tmax)) +
+  geom_violin()
+```
+
+Ridge plots ... # 和 geom_density 的区别是什么？
+
+```{r}
+weather_df |>
+  ggplot(aes(x = tmax, y = name)) +
+  geom_density_ridges()
+```
+
+## Save some of my plots
+
+```{r}
+ggp_weather =
+weather_df |>
+  ggplot(aes(x = date, y = tmax, colour = name)) +
+  geom_point(aes(size = prcp), alpha = .5) +
+  facet_grid(. ~ name)
+
+ggp_weather
+
+ggsave("images/ggp_weather.pdf", ggp_weather)
+```
+
+```{r fig.width= 12, fig.height= 12}
+weather_df |>
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_point()
 ```
 
 
